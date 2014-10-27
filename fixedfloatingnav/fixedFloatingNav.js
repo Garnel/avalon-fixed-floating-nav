@@ -19,6 +19,48 @@ define(["avalon",
             }
         }
 
+        // document.getElementsByClassName的理想实现
+        // http://www.cnblogs.com/rubylouvre/archive/2009/07/24/1529640.html
+        var getElementsByClassName = function (searchClass, node, tag) {
+            if(document.getElementsByClassName){
+                var nodes =  (node || document).getElementsByClassName(searchClass),
+                    result = [];
+                if (!tag || tag === "*") {
+                    return nodes;
+                }
+
+                for(var i = 0 ; i < nodes.length; ++i){
+                    if(nodes[i].tagName === tag.toUpperCase()){
+                        result.push(node)
+                    }
+                }
+                return result
+            } else {
+                node = node || document;
+                tag = tag || "*";
+                var classes = searchClass.split(" "),
+                    elements = (tag === "*" && node.all)? node.all : node.getElementsByTagName(tag),
+                    patterns = [],
+                    current,
+                    match;
+                var i = classes.length;
+                while(--i >= 0){
+                    patterns.push(new RegExp("(^|\\s)" + classes[i] + "(\\s|$)"));
+                }
+                var j = elements.length;
+                while(--j >= 0){
+                    current = elements[j];
+                    match = false;
+                    for(var k=0, kl=patterns.length; k<kl; k++){
+                        match = patterns[k].test(current.className);
+                        if (!match)  break;
+                    }
+                    if (match)  result.push(current);
+                }
+                return result;
+            }
+        };
+
         var vmodel = avalon.define(data.fixedfloatingnavId, function(vm) {
             avalon.mix(vm, options);
             vm.widgetElement = element;
@@ -81,7 +123,7 @@ define(["avalon",
                 avalon.scan(element, [vmodel].concat(vmodels));
                 element.style.display = "block";
 
-                vmodel.navElem = element.getElementsByClassName("fixed-floating-nav-panel")[0];
+                vmodel.navElem = getElementsByClassName("fixed-floating-nav-panel", element)[0];
                 if (!vmodel.navElem) {
                     throw new Error("找不到导航条");
                 }
@@ -103,7 +145,7 @@ define(["avalon",
 
             // scroll to view
             vm.scrollToAnchorId = function(hash, el) {
-                var navBar = document.getElementsByClassName("fixed-floating-nav-panel")[0];
+                var navBar = ("fixed-floating-nav-panel", document, "*")[0];
                 el = document.getElementById(hash) || getFirstAnchor(document.getElementsByName(hash));
 
                 if (navBar && el) {
