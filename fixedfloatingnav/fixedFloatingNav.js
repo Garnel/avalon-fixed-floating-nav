@@ -22,14 +22,14 @@ define(["avalon",
         // document.getElementsByClassName的理想实现
         // http://www.cnblogs.com/rubylouvre/archive/2009/07/24/1529640.html
         var getElementsByClassName = function (searchClass, node, tag) {
+            var result = [], i;
             if(document.getElementsByClassName){
-                var nodes =  (node || document).getElementsByClassName(searchClass),
-                    result = [];
+                var nodes =  (node || document).getElementsByClassName(searchClass);
                 if (!tag || tag === "*") {
                     return nodes;
                 }
 
-                for(var i = 0 ; i < nodes.length; ++i){
+                for(i = 0 ; i < nodes.length; ++i){
                     if(nodes[i].tagName === tag.toUpperCase()){
                         result.push(node)
                     }
@@ -43,7 +43,7 @@ define(["avalon",
                     patterns = [],
                     current,
                     match;
-                var i = classes.length;
+                i = classes.length;
                 while(--i >= 0){
                     patterns.push(new RegExp("(^|\\s)" + classes[i] + "(\\s|$)"));
                 }
@@ -55,7 +55,7 @@ define(["avalon",
                         match = patterns[k].test(current.className);
                         if (!match)  break;
                     }
-                    if (match)  result.push(current);
+                    if (match) result.push(current);
                 }
                 return result;
             }
