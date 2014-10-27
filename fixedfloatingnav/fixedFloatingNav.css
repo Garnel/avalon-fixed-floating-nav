@@ -1,13 +1,8 @@
-.fixed-floating-nav {
-  text-align: center;
-  line-height: 110px;
-  height: 110px; }
+.fixed-floating-nav-panel {
+  text-align: center; }
 
 .fixed-floating-nav-bar {
-  height: 40px;
-  line-height: 40px;
   position: relative;
-  top: 30px;
   background-color: #f8f8f8; }
 
 .fixed-floating-nav-bar-fixed {
@@ -17,19 +12,19 @@
   right: 0;
   margin-left: auto;
   margin-right: auto;
-  z-index: 1;
+  z-index: 10;
   background-color: white;
   box-shadow: 0 0 5px gray; }
 
 .fixed-floating-nav-item {
   display: inline-block; }
   .fixed-floating-nav-item > a {
-    font-size: 19px;
+    font: normal 20px/1.5 "Helvetica Neue", Helvetica, Arial, Sans-serif;
     height: 20px;
     line-height: 20px;
     vertical-align: middle; }
   .fixed-floating-nav-item > a:hover {
-    color: #e60040;
+    color: #dc0031;
     cursor: pointer; }
   .fixed-floating-nav-item:after {
     content: "";
@@ -41,7 +36,7 @@
     height: 20px; }
 
 .fixed-floating-nav-item-active {
-  color: #e60040; }
+  color: #dc0031; }
 
 .fixed-floating-nav-item-last:after {
   content: "";

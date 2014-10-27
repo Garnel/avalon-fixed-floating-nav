@@ -1,7 +1,17 @@
-<div class="fixed-floating-nav">
-    <ul class="fixed-floating-nav-bar" ms-class="fixed-floating-nav-bar-fixed:fixed">
-        <li class="fixed-floating-nav-item" ms-repeat="navItems"
-              ms-click="scrollToAnchorId(el.anchor)" ms-class="fixed-floating-nav-item-last:$last">
+<div class="fixed-floating-nav-panel"
+     ms-css-height="panelHeight"
+     ms-css-line-height="{{panelHeight}}px">
+    <ul class="fixed-floating-nav-bar"
+        ms-class="fixed-floating-nav-bar-fixed:fixed"
+        ms-css-height="navBarHeight"
+        ms-css-line-height="{{navBarHeight}}px"
+        ms-css-top="navRelativeTop">
+        <li class="fixed-floating-nav-item"
+            ms-repeat="navItems"
+            ms-click="scrollToAnchorId(el.anchor)"
+            ms-class="fixed-floating-nav-item-last:$last"
+            ms-css-height="navBarHeight"
+            ms-css-line-height="{{navBarHeight}}px">
             <a ms-class="fixed-floating-nav-item-active:$index===activeIndex">{{el.label}}</a>
         </li>
     </ul>

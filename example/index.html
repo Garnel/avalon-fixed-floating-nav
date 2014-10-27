@@ -33,15 +33,27 @@
             display: none;
         }
 
-        #anchor1, #anchor2, #anchor3, #anchor4, #footer {
+        #header {
+            text-align: center;
+            background-color: #eee;
+        }
+
+        #footer {
+            text-align: center;
+            background-color: #eee;
+            height: 200px;
+        }
+
+        #anchor1, #anchor2, #anchor3, #anchor4 {
             margin: 5px;
             background-color: #eee;
-            border: 1px gray solid;
+            border: 1px #ddd solid;
             height: 600px;
         }
     </style>
 </head>
 <body ms-controller="demo" class="ms-controller">
+    <div id="header"><h1>Fixed Floating Navigation Bar for Avalonjs</h1></div>
     <div ms-widget="fixedfloatingnav"></div>
 
     <div id="anchor1">我是条目一</div>
