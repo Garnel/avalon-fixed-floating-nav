@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fixed Floating Nav for Avalonjs</title>
+    <script src="./avalon.js"></script>
+    <script>
+        require(["../fixedfloatingnav/fixedFloatingNav"], function() {
+            avalon.define("demo", function(vm){
+                vm.fixedfloatingnav = {
+                    navItems: [
+                        {label: "条目一", anchor: "anchor1"},
+                        {label: "条目二", anchor: "anchor2"},
+                        {label: "未实现", anchor: "anchor3"},
+                        {label: "条目四", anchor: "anchor4"}
+                    ]
+                },
+                vm.$skipArray = ["fixedfloatingnav"];
+            });
+            avalon.scan();
+        });
+    </script>
+    <style>
+        html, body, div, ul, ol, li, a {
+            margin: 0;
+            padding: 0;
+            font-weight: normal;
+            font-family: "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+            color: #4b4a48;
+        }
+
+        .ms-controller {
+            display: none;
+        }
+
+        #anchor1, #anchor2, #anchor3, #anchor4, #footer {
+            margin: 5px;
+            background-color: #eee;
+            border: 1px gray solid;
+            height: 600px;
+        }
+    </style>
+</head>
+<body ms-controller="demo" class="ms-controller">
+    <div ms-widget="fixedfloatingnav"></div>
+
+    <div id="anchor1">我是条目一</div>
+    <div id="anchor2">我是条目二</div>
+    <!--<div id="anchor3">我是未实现的条目</div>-->
+    <div id="anchor4">我是条目四</div>
+    <div id="footer">忽略我这个 footer</div>
+</body>
+</html>

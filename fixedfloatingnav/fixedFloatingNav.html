@@ -1,0 +1,8 @@
+<div class="fixed-floating-nav">
+    <ul class="fixed-floating-nav-bar" ms-class="fixed-floating-nav-bar-fixed:fixed">
+        <li class="fixed-floating-nav-item" ms-repeat="navItems"
+              ms-click="scrollToAnchorId(el.anchor)" ms-class="fixed-floating-nav-item-last:$last">
+            <a ms-class="fixed-floating-nav-item-active:$index===activeIndex">{{el.label}}</a>
+        </li>
+    </ul>
+</div>
