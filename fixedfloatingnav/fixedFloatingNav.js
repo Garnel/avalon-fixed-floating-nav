@@ -10,11 +10,20 @@ define(["avalon",
         var options = data.fixedfloatingnavOptions;
         options.template = options.getTemplate(template, options);
 
-        //得到页面第一个符合条件的A标签
+        // element本身存在ms-if或者内部包含ms-repeat等绑定，在抽取数据之前，先对element进行扫描
+        element.removeAttribute("ms-duplex");
+        avalon.scan(element, vmodels);
+
+        // get data
+        var items = getDataFromHTML(element);
+
+        //avalon(element).css('display', 'none');
+
+        // 得到页面第一个符合条件的A标签
         function getFirstAnchor(list) {
             for (var i = 0, el; el = list[i++]; ) {
                 if (el.nodeName === "A") {
-                    return el
+                    return el;
                 }
             }
         }
@@ -31,10 +40,10 @@ define(["avalon",
 
                 for(i = 0 ; i < nodes.length; ++i){
                     if(nodes[i].tagName === tag.toUpperCase()){
-                        result.push(node)
+                        result.push(node);
                     }
                 }
-                return result
+                return result;
             } else {
                 node = node || document;
                 tag = tag || "*";
@@ -105,14 +114,35 @@ define(["avalon",
                 vmodel.validAnchorIds.splice(0);
                 vmodel.validAnchorElems.splice(0);
                 for (var i = 0; i < vmodel.navItems.length; ++i) {
-                    var hash = vmodel.navItems[i].anchor;
+                    var hash = vmodel.navItems[i].location;
                     if (!!hash) {
+                        if (hash.indexOf('#') === 0) { // anchor
+                            hash = hash.slice(1);
+                        } else {
+                            continue;
+                        }
                         var elem = document.getElementById(hash);
                         if (elem && elem.getBoundingClientRect().height > 0) {
                             vmodel.validAnchorIds.push(i);
                             vmodel.validAnchorElems.push(elem);
                         }
                     }
+                }
+            };
+
+            // scroll to view
+            var scrollToAnchorId = function(hash, el) {
+                var navBar = getElementsByClassName("fixed-floating-nav-panel", document, "*")[0];
+                el = document.getElementById(hash) || getFirstAnchor(document.getElementsByName(hash));
+
+                if (navBar && el) {
+                    if (navBar.offsetTop > el.offsetTop) {
+                        el.scrollIntoView();
+                    } else {
+                        window.scrollTo(0, el.offsetTop - vmodel.navBarHeight);
+                    }
+                } else {
+                    window.scrollTo(0, 0);
                 }
             };
 
@@ -143,25 +173,25 @@ define(["avalon",
                 vmodel.validAnchorElems.splice(0);
             };
 
-            // scroll to view
-            vm.scrollToAnchorId = function(hash, el) {
-                var navBar = ("fixed-floating-nav-panel", document, "*")[0];
-                el = document.getElementById(hash) || getFirstAnchor(document.getElementsByName(hash));
 
-                if (navBar && el) {
-                    if (navBar.offsetTop > el.offsetTop) {
-                        el.scrollIntoView();
-                    } else {
-                        window.scrollTo(0, el.offsetTop - vmodel.navBarHeight);
-                    }
-                } else {
-                    window.scrollTo(0, 0);
+            vm.jumpToLocation = function(location) {
+                if (!location) {
+                    return;
+                }
+
+                if (location.indexOf('#') === 0) {
+                    scrollToAnchorId(location.slice(1));
+                } else if (location.indexOf('http://') === 0 ||
+                           location.indexOf('https://') === 0) {
+                    window.location.assign(location);
                 }
             };
+
         });
         vmodel.$watch("$all", function() {});
+        vmodel.navItems.pushArray(items);
 
-        return vmodel
+        return vmodel;
     };
 
     widget.defaults = {
@@ -174,5 +204,29 @@ define(["avalon",
             return tmpl;
         }, //@optMethod getTemplate(tpl, opts, tplName) 定制修改模板接口
         $author: "maogm12@gmail.com"
+    };
+
+    // parse nav item from nav tag
+    function getDataFromHTML(select) {
+        var ret = [];
+        var elems = select.children;
+        for (var i = 0, el; el = elems[i++]; ) {
+            // find the first nav tag, and parse the nav items
+            if (el.nodeType === 1 && el.tagName === 'NAV') {
+                elems = el.children;
+                break;
+            }
+        }
+
+        for (var i = 0, el; el = elems[i++]; ) {
+            // parse all link nodes
+            if (el.nodeType === 1 && el.tagName === 'A') {
+                ret.push({
+                    label: el.text.trim(),
+                    location: el.attributes['href'].value
+                });
+            }
+        }
+        return ret;
     }
 });

@@ -9,10 +9,8 @@
             avalon.define("demo", function(vm){
                 vm.fixedfloatingnav = {
                     navItems: [
-                        {label: "条目一", anchor: "anchor1"},
-                        {label: "条目二", anchor: "anchor2"},
-                        {label: "未实现", anchor: "anchor3"},
-                        {label: "条目四", anchor: "anchor4"}
+                        {label: "条目一", location: "#anchor1"},
+                        {label: "未实现", location: "#anchor3"},
                     ]
                 },
                 vm.$skipArray = ["fixedfloatingnav"];
@@ -42,6 +40,8 @@
             text-align: center;
             background-color: #eee;
             height: 200px;
+            font-size: 30px;
+            padding-top: 30px;
         }
 
         #anchor1, #anchor2, #anchor3, #anchor4 {
@@ -49,12 +49,21 @@
             background-color: #eee;
             border: 1px #ddd solid;
             height: 600px;
+            font-size: 30px;
+            text-align: center;
+            padding-top: 30px;
         }
     </style>
 </head>
 <body ms-controller="demo" class="ms-controller">
     <div id="header"><h1>Fixed Floating Navigation Bar for Avalonjs</h1></div>
-    <div ms-widget="fixedfloatingnav"></div>
+    <div ms-widget="fixedfloatingnav">
+        <nav>
+            <a href="#anchor2">条目二</a>
+            <a href="#anchor4">条目四</a>
+            <a href="http://www.baidu.com">百度</a>
+        </nav>
+    </div>
 
     <div id="anchor1">我是条目一</div>
     <div id="anchor2">我是条目二</div>
