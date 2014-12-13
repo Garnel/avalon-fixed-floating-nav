@@ -3,21 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Fixed Floating Nav for Avalonjs</title>
-    <script src="./avalon.js"></script>
-    <script>
-        require(["../fixedfloatingnav/fixedFloatingNav"], function() {
-            avalon.define("demo", function(vm){
-                vm.fixedfloatingnav = {
-                    navItems: [
-                        {label: "条目一", location: "#anchor1"},
-                        {label: "未实现", location: "#anchor3"},
-                    ]
-                },
-                vm.$skipArray = ["fixedfloatingnav"];
-            });
-            avalon.scan();
-        });
-    </script>
+    <script src="./bower_components/avalon/avalon.js"></script>
     <style>
         html, body, div, ul, ol, li, a {
             margin: 0;
@@ -70,5 +56,19 @@
     <!--<div id="anchor3">我是未实现的条目</div>-->
     <div id="anchor4">我是条目四</div>
     <div id="footer">忽略我这个 footer</div>
+    <script>
+        require(["../../fixedfloatingnav/fixedFloatingNav"], function() {
+            avalon.define("demo", function(vm){
+                vm.fixedfloatingnav = {
+                    navItems: [
+                        {label: "条目一", location: "#anchor1"},
+                        {label: "未实现", location: "#anchor3"},
+                    ]
+                },
+                vm.$skipArray = ["fixedfloatingnav"];
+            });
+            avalon.scan();
+        });
+    </script>
 </body>
 </html>

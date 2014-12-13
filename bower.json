@@ -1,0 +1,32 @@
+{
+  "name": "avalon-fixed-floating-nav",
+  "version": "0.1.0",
+  "homepage": "https://github.com/Garnel/avalon-fixed-floating-nav",
+  "authors": [
+    "Guangming Mao <maogm12@gmail.com>"
+  ],
+  "description": "a plugin to gen fixed floating navigation bar for avalonjs",
+  "main": [
+    "./fixedfloatingnav/fixedFloatingNav.js",
+    "./fixedfloatingnav/fixedFloatingNav.scss",
+    "./fixedfloatingnav/fixedFloatingNav.html"
+  ],
+  "moduleType": [
+    "amd"
+  ],
+  "keywords": [
+    "avalonjs",
+    "plugin",
+    "fixed-floating-nav"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "bower_components",
+    "*.css.map",
+    "example.html"
+  ],
+  "dependencies": {
+    "avalon": "~1.3.7"
+  }
+}

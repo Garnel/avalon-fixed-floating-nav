@@ -2,13 +2,14 @@
 
 一个页面内导航的 avalonjs 插件，可以在滚动时固定在头部
 
-demo 页面请看[这里](maogm.com/projects/fixedfloatingnav/example/index.html)
+demo 页面请看[这里](maogm.com/projects/fixedfloatingnav/example.html)
 
 ## 功能
 
 1. 滚动时固定在顶部
 2. 点击导航项跳转到相应锚点
 3. 在滚动到某个区域的时候高亮显示当前区域的导航项
+4. 自动从 `nav` 标签里面的 `a` 便签里面解析导航项
 
 ## 用法
 
@@ -24,6 +25,6 @@ demo 页面请看[这里](maogm.com/projects/fixedfloatingnav/example/index.html
         offsetY: 30,    // 导航条在容器内的相对位移
     },
 
-## 问题
+如果你使用 `bower`
 
-导航条由 js 生成，在 js 没有加载出来的时候不可用，等我加上用 html 内容（比如 nav 标签）生成导航条
+    bower install avalon-fixed-floating-nav
